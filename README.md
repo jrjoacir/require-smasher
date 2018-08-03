@@ -22,7 +22,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Requiring everything: gems and ruby files inside a directory and its sub-directories recursively
+
+```ruby
+require_all '<DIRECTORY_NAME1>', '<DIRECTORY_NAME2/SUB-DIRECTORY>', '<GEM_NAME1>', '<GEM_NAME2>'
+```
+This command will require all ruby files found in directory DIRECTORY_NAME1 and its sub-directories, all ruby files in directory DIRECTORY_NAME2/SUB-DIRECTORY and its sub-directories, gem GEM_NAME1 and gem GEM_NAME2.
+
+### Requiring ruby files inside a directory and its sub-directories recursively
+
+```ruby
+require_dir '<DIRECTORY_NAME>'
+```
+This command will require all ruby files found in directory DIRECTORY_NAME and its sub-directories.
+
+### Requiring ruby files inside many directories and its sub-directories recursively
+
+```ruby
+require_dirs '<DIRECTORY_NAME1>', '<DIRECTORY_NAME2/SUB-DIRECTORY>'
+```
+This command will require all ruby files found in directory DIRECTORY_NAME1 and its sub-directories, all ruby files in directory DIRECTORY_NAME2/SUB-DIRECTORY and its sub-directories.
+
+### Requiring a gem
+
+```ruby
+require_gem '<GEM_NAME>'
+```
+This command will require informed gem.
+
+### Requiring many gems
+
+```ruby
+require_gems '<GEM_NAME1>', '<GEM_NAME2>'
+```
+This command will require gems GEM_NAME1 and GEM_NAME2.
 
 ## Development
 
