@@ -13,12 +13,12 @@ module RequireDir
     files_with_error = []
     errors = []
 
-    files.each do |f|
+    files.each do |file|
       begin
-        require_relative f
-      rescue => e
-        files_with_error << f
-        errors << {file: f, error: e.message}
+        require_relative file
+      rescue => error
+        files_with_error << file
+        errors << {file: file, error: error.message}
       end
     end
 
