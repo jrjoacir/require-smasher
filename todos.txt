@@ -2,3 +2,4 @@ tratar errors especificos com classe de erros a criar
 fazer readme em ingles e portugues
 adicionar simplecov
 revisar arquivo gemspec
+passar pela a avaliação do rubocop
