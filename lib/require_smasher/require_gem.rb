@@ -4,10 +4,10 @@ module RequireGem
 
     begin
       require gem
-    rescue LoadError => e
-      raise e, "Error requering gem '#{gem}': #{e.message}"
-    rescue => e
-      raise StandardError, "Error requering gem '#{gem}': #{e.message}"
+    rescue LoadError => error
+      raise error, "Error requering gem '#{gem}': #{error.message}"
+    rescue => error
+      raise StandardError, "Error requering gem '#{gem}': #{error.message}"
     end
   end
 end

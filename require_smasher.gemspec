@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Um jeito fácil de dar 'require' em seus diretórios e gems.}
   spec.description   = %q{Require_Smasher dá à você o poder de importar (require) arquivos de um diretório (e seus sub-diretórios) e gems com o mesmo command (se quiser).}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  #spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

@@ -6,8 +6,10 @@ module RequireElements
     elements.each do |element|
       begin
         require_module.req(element)
-      rescue => e
-        errors << e.message
+      rescue LoadError => error
+        errors << error.message
+      rescue => error
+        errors << error.message
       end
     end
 
