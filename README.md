@@ -1,5 +1,13 @@
 # RequireSmasher
 
+This project was born just to solve a problem: require ruby files recursively in a directory. However it grew up and learned to solve other simple problems:
+
+- require ruby files recursively in a directories and its sub-directories
+- require ruby files recursively in a list of directories and its sub-directories
+- require a gem
+- require a list of gems
+
+
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/require_smasher`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem
