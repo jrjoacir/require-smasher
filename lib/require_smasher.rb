@@ -10,12 +10,12 @@ def require_all(*required_list)
   required_list.each do |required|
     begin
       require_gems(required)
-    rescue => e
+    rescue StandardError => gem_error
       begin
         require_dirs(required)
-      rescue => f
-        errors << e.message
-        errors << f.message
+      rescue StandardError => dir_error
+        errors << gem_error.message
+        errors << dir_error.message
       end
     end
   end

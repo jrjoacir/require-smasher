@@ -8,7 +8,7 @@ module RequireElements
         require_module.req(element)
       rescue LoadError => error
         errors << error.message
-      rescue => error
+      rescue StandardError => error
         errors << error.message
       end
     end

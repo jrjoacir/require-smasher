@@ -4,7 +4,7 @@ module RequireDir
   end
 
   def self.files(directory)
-    raise StandardError, "Directory was not informed" unless directory
+    raise StandardError, 'Directory was not informed' unless directory
     raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
     Dir.glob(File.join(File.expand_path("./#{directory}"), '**', '*.rb'))
   end
@@ -16,9 +16,9 @@ module RequireDir
     files.each do |file|
       begin
         require_relative file
-      rescue => error
+      rescue StandardError => error
         files_with_error << file
-        errors << {file: file, error: error.message}
+        errors << { file: file, error: error.message }
       end
     end
 
@@ -26,11 +26,8 @@ module RequireDir
 
     attempt += 1 if files == files_with_error
 
-    if attempt < 2
-      require_files(files_with_error, attempt)
-    else
-      raise StandardError, errors
-    end
+    raise StandardError, errors if attempt > 1
+    require_files(files_with_error, attempt)
   end
 
   private_class_method :files, :require_files
