@@ -2,7 +2,6 @@ tratar errors especificos com classe de erros a criar
 fazer readme em ingles e portugues
 revisar arquivo gemspec
 resolver ofensores restantes do rubocop
-adicionar byebug
 criar repositório no github
 criar conta no rubygems
 publicar gem
