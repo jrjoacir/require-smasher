@@ -32,11 +32,11 @@ def require_dir(directory)
 end
 
 def require_dirs(*directories)
-  raise StandardError, 'No directories was informed' unless directories
+  raise StandardError, 'No directories was informed' if directories.empty?
   RequireElements.require_elements(directories, RequireDir)
 end
 
 def require_gems(*gems)
-  raise StandardError, 'No gems was informed' unless gems
+  raise StandardError, 'No gems was informed' if gems.empty?
   RequireElements.require_elements(gems, RequireGem)
 end

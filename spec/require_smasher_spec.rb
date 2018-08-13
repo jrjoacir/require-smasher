@@ -19,6 +19,7 @@ RSpec.describe RequireSmasher do
       it 'raise a StandardError with message for gems and directories' do
         expect{ subject }.to raise_error(StandardError, error_message)
       end
+
     end
 
     context 'when required list is valid' do
@@ -76,8 +77,63 @@ RSpec.describe RequireSmasher do
   end
 
   context '#require_dirs' do
+    context 'when directories are not informed' do
+      subject { require_dirs }
+      let(:error_message) { 'No directories was informed' }
+
+      it 'raise a StandardError with message' do
+        expect{ subject }.to raise_error(StandardError, error_message)
+      end
+    end
+
+    context 'when directories are valid' do
+      context 'when just one directory is informed' do
+        subject { require_dirs(directory) }
+        let(:directory) { 'spec/fixtures/with_subdirectories/without_errors' }
+
+        it 'return nil' do
+          expect(subject).to eq nil
+        end
+      end
+
+      context 'when many directories are informed' do
+        subject { require_dirs(directory_1, directory_2) }
+        let(:directory_1) { 'spec/fixtures/with_subdirectories/without_errors' }
+        let(:directory_2) { 'spec/fixtures/without_subdirectories/without_errors' }
+
+        it 'return nil' do
+          expect(subject).to eq nil
+        end
+      end
+    end
   end
 
   context '#require_gems' do
+    context 'when gems are not informed' do
+      subject { require_gems }
+      let(:error_message) { 'No gems was informed' }
+
+      it 'raise a StandardError with message' do
+        expect{ subject }.to raise_error(StandardError, error_message)
+      end
+    end
+
+    context 'when gems are valid' do
+      context 'when just one gem is informed' do
+        subject { require_gems('rspec') }
+
+        it 'return nil' do
+          expect(subject).to eq nil
+        end
+      end
+
+      context 'when many gems are informed' do
+        subject { require_gems('rspec', 'rake') }
+
+        it 'return nil' do
+          expect(subject).to eq nil
+        end
+      end
+    end
   end
 end
