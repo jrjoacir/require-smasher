@@ -9,15 +9,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Joacir Junior"]
   spec.email         = ["jr.joacir@gmail.com"]
 
-  spec.summary       = %q{Um jeito fácil de dar 'require' em seus diretórios e gems.}
-  spec.description   = %q{Require_Smasher dá à você o poder de importar (require) arquivos de um diretório (e seus sub-diretórios) e gems com o mesmo command (se quiser).}
-  #spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A simple way to require ruby files in directories and in its sub-directories, and gems.}
+  spec.description   = %q{Require Smasher give you the power to require ruby files in a list of directories and their sub-directories (recursively), and a list of gems, with just one command.}
+  spec.homepage      = "https://github.com/jrjoacir/require-smasher"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."

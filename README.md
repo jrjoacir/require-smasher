@@ -1,16 +1,12 @@
 # RequireSmasher
 
-This project was born just to solve a problem: require ruby files recursively in a directory. However it grew up and learned to solve other simple problems:
+This project was born just to solve a problem: require ruby files **recursively** in a directory. However it grew up and learned to solve other simple problems:
 
-- require ruby files recursively in a directories and its sub-directories
-- require ruby files recursively in a list of directories and its sub-directories
-- require a gem
-- require a list of gems
-
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/require_smasher`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+- require ruby files recursively in a directory and its sub-directories, trying to resolve interdependent files (`require_dir`)
+- require ruby files recursively in a list of directories and their sub-directories, trying to resolve interdependent files (`require_dirs`)
+- require a gem (`require_gem`)
+- require a list of gems (`require_gems`)
+- require a **list of gems** and ruby files in a **list of directories** and their sub-directories with just **one command** (`require_all`)
 
 ## Installation
 
@@ -30,40 +26,40 @@ Or install it yourself as:
 
 ## Usage
 
-### Requiring everything: gems and ruby files inside a directory and its sub-directories recursively
+### Require All
 
 ```ruby
-require_all '<DIRECTORY_NAME1>', '<DIRECTORY_NAME2/SUB-DIRECTORY>', '<GEM_NAME1>', '<GEM_NAME2>'
+require_all 'directory_1', 'directory_2/sub-directory', 'gem_1', 'gem_2'
 ```
-This command will require all ruby files found in directory DIRECTORY_NAME1 and its sub-directories, all ruby files in directory DIRECTORY_NAME2/SUB-DIRECTORY and its sub-directories, gem GEM_NAME1 and gem GEM_NAME2.
+This command will require all ruby files found in directory `directory_1` and its sub-directories, all ruby files in directory `directory_2/sub-directory` and in its sub-directories, gem `gem_1` and gem `gem_2`.
 
-### Requiring ruby files inside a directory and its sub-directories recursively
+### Require Dir
 
 ```ruby
-require_dir '<DIRECTORY_NAME>'
+require_dir 'directory_1'
 ```
-This command will require all ruby files found in directory DIRECTORY_NAME and its sub-directories.
+This command will require all ruby files found in directory `directory_1` and in its sub-directories.
 
-### Requiring ruby files inside many directories and its sub-directories recursively
+### Require Dirs
 
 ```ruby
-require_dirs '<DIRECTORY_NAME1>', '<DIRECTORY_NAME2/SUB-DIRECTORY>'
+require_dirs 'directory_1', 'directory_2/sub-directory'
 ```
-This command will require all ruby files found in directory DIRECTORY_NAME1 and its sub-directories, all ruby files in directory DIRECTORY_NAME2/SUB-DIRECTORY and its sub-directories.
+This command accept a list of directories and it will require all ruby files found in directory `directory_1` and in its sub-directories, all ruby files in directory `directory_2/sub-directory` and in its sub-directories.
 
-### Requiring a gem
+### Require Gem
 
 ```ruby
-require_gem '<GEM_NAME>'
+require_gem 'gem'
 ```
-This command will require informed gem.
+This command will require the informed gem.
 
-### Requiring many gems
+### Require Gems
 
 ```ruby
-require_gems '<GEM_NAME1>', '<GEM_NAME2>'
+require_gems 'gem_1', 'gem_2'
 ```
-This command will require gems GEM_NAME1 and GEM_NAME2.
+This command accept a list of gems and it will require gems `gem_1` and `gem_2`.
 
 ## Development
 
@@ -73,7 +69,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/require_smasher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jrjoacir/require-smasher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
