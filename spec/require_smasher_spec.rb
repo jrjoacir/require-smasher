@@ -9,12 +9,7 @@ RSpec.describe RequireSmasher do
       let(:require_2) { 'rake' }
       let(:require_3) { 'invalid_directory_1' }
       let(:require_4) { 'invalid_gem_1' }
-
-      let(:error_message) { [error_message_1, error_message_2, error_message_3, error_message_4].to_s }
-      let(:error_message_1) { "Error requering gem '#{require_3}': cannot load such file -- #{require_3}" }
-      let(:error_message_2) { "Directory '#{require_3}' does not exist" }
-      let(:error_message_3) { "Error requering gem '#{require_4}': cannot load such file -- #{require_4}" }
-      let(:error_message_4) { "Directory '#{require_4}' does not exist" }
+      let(:error_message) { "Error attempting to require gem or directory. Directory '#{require_3}' does not exist" }
 
       it 'raise a StandardError with message for gems and directories' do
         expect{ subject }.to raise_error(StandardError, error_message)
@@ -39,18 +34,18 @@ RSpec.describe RequireSmasher do
 
     context 'when gem is invalid' do
       let(:gem) { 'invalid_gem_1' }
-      let(:error_message) { "Error requering gem '#{gem}': cannot load such file -- #{gem}" }
+      let(:error_message) { "cannot load such file -- #{gem}" }
 
-      it 'raise a StandardError with message for a gem' do
-        expect{ subject }.to raise_error(StandardError, error_message)
+      it 'raise a LoadError with message for a gem' do
+        expect{ subject }.to raise_error(LoadError, error_message)
       end
     end
 
     context 'when gem is valid' do
       let(:gem) { 'rake' }
 
-      it 'return nil' do
-        expect(subject).to be_nil
+      it 'return a list of required gems' do
+        expect(subject).to eq ['rake']
       end
     end
   end
@@ -79,7 +74,7 @@ RSpec.describe RequireSmasher do
   context '#require_dirs' do
     context 'when directories are not informed' do
       subject { require_dirs }
-      let(:error_message) { 'No directories was informed' }
+      let(:error_message) { 'No directory was informed' }
 
       it 'raise a StandardError with message' do
         expect{ subject }.to raise_error(StandardError, error_message)
@@ -111,7 +106,7 @@ RSpec.describe RequireSmasher do
   context '#require_gems' do
     context 'when gems are not informed' do
       subject { require_gems }
-      let(:error_message) { 'No gems was informed' }
+      let(:error_message) { 'No gem was informed' }
 
       it 'raise a StandardError with message' do
         expect{ subject }.to raise_error(StandardError, error_message)
@@ -122,16 +117,16 @@ RSpec.describe RequireSmasher do
       context 'when just one gem is informed' do
         subject { require_gems('rspec') }
 
-        it 'return nil' do
-          expect(subject).to eq nil
+        it 'return a list of required gems' do
+          expect(subject).to eq ['rspec']
         end
       end
 
       context 'when many gems are informed' do
         subject { require_gems('rspec', 'rake') }
 
-        it 'return nil' do
-          expect(subject).to eq nil
+        it 'return a list of required gems' do
+          expect(subject).to eq ['rspec', 'rake']
         end
       end
     end

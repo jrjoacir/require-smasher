@@ -1,42 +1,43 @@
 require 'require_smasher/version'
 require 'require_smasher/require_gem'
 require 'require_smasher/require_dir'
-require 'require_smasher/require_elements'
 
 def require_all(*required_list)
-  required_list.uniq!
-  errors = []
+  directories = []
 
-  required_list.each do |required|
+  required_list.uniq.each do |required|
     begin
-      require_gems(required)
-    rescue StandardError => gem_error
-      begin
-        require_dirs(required)
-      rescue StandardError => dir_error
-        errors << gem_error.message
-        errors << dir_error.message
-      end
+      require_gem(required)
+    rescue StandardError, LoadError
+      directories << required
     end
   end
 
-  raise StandardError, errors unless errors.empty?
+  # GENERALIZAR ERRO PARA GEM E DIRETORIO. Tratar raises especificos de diretorio e concatenar mensagem de não achou gem.
+  # Como mostrar os dois erros?
+  begin
+    require_dir(directories) unless directories.empty?
+  rescue StandardError, LoadError => error
+    raise StandardError, "Error attempting to require gem or directory. #{error.message}"
+  end
 end
 
-def require_gem(gem)
-  require_gems(gem)
+def require_gem(gems)
+  raise StandardError, 'No gem was informed' if gems.empty?
+  return RequireGem.req([gems]) if gems.instance_of?(String)
+  RequireGem.req(gems)
 end
 
-def require_dir(directory)
-  require_dirs(directory)
+def require_dir(directories)
+  raise StandardError, 'No directory was informed' if directories.empty?
+  return RequireDir.req([directories]) if directories.instance_of?(String)
+  RequireDir.req(directories)
 end
 
 def require_dirs(*directories)
-  raise StandardError, 'No directories was informed' if directories.empty?
-  RequireElements.require_elements(directories, RequireDir)
+  require_dir(directories)
 end
 
 def require_gems(*gems)
-  raise StandardError, 'No gems was informed' if gems.empty?
-  RequireElements.require_elements(gems, RequireGem)
+  require_gem(gems)
 end
