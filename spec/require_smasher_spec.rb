@@ -101,6 +101,17 @@ RSpec.describe RequireSmasher do
         end
       end
     end
+
+    context 'when exists cross directories dependencies' do
+      subject { require_dirs(directory_1, directory_2) }
+
+      let(:directory_1) { 'spec/fixtures/with_cross_dependences/cross_1' }
+      let(:directory_2) { 'spec/fixtures/with_cross_dependences/cross_2' }
+
+      it 'return nil' do
+        expect(subject).to eq nil
+      end
+    end
   end
 
   context '#require_gems' do

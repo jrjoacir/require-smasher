@@ -18,7 +18,7 @@ module RequireDir
     files_with_error = []
     errors = []
 
-    files.each do |file|
+    files.uniq.each do |file|
       begin
         require_relative file
       rescue StandardError => error
