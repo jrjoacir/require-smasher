@@ -26,7 +26,7 @@ module RequireDir
       end
     end
 
-    return if files_with_error.count <= 0
+    return if files_with_error.empty?
 
     attempt += 1 if files == files_with_error
 
