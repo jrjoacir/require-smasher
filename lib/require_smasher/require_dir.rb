@@ -1,11 +1,10 @@
 module RequireDir
   def self.req(directories)
+    raise StandardError, 'Directory was not informed' if directories.empty?
     require_files(files(directories))
   end
 
   def self.files(directories)
-    raise StandardError, 'Directory was not informed' if directories.empty?
-
     files = []
     directories.uniq.each do |directory|
       raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
@@ -23,7 +22,7 @@ module RequireDir
         require_relative file
       rescue StandardError => error
         files_with_error << file
-        errors << { file: file, error: error.message }
+        errors << "Error while requiring file #{file}: #{error.message}"
       end
     end
 

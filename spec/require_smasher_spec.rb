@@ -9,10 +9,10 @@ RSpec.describe RequireSmasher do
       let(:require_2) { 'rake' }
       let(:require_3) { 'invalid_directory_1' }
       let(:require_4) { 'invalid_gem_1' }
-      let(:error_message) { "Error attempting to require gem or directory. Directory '#{require_3}' does not exist" }
+      let(:error_message) { "cannot load such file -- #{require_3}" }
 
       it 'raise a StandardError with message for gems and directories' do
-        expect{ subject }.to raise_error(StandardError, error_message)
+        expect{ subject }.to raise_error(LoadError, error_message)
       end
 
     end
@@ -74,7 +74,7 @@ RSpec.describe RequireSmasher do
   context '#require_dirs' do
     context 'when directories are not informed' do
       subject { require_dirs }
-      let(:error_message) { 'No directory was informed' }
+      let(:error_message) { 'Directory was not informed' }
 
       it 'raise a StandardError with message' do
         expect{ subject }.to raise_error(StandardError, error_message)
@@ -117,7 +117,7 @@ RSpec.describe RequireSmasher do
   context '#require_gems' do
     context 'when gems are not informed' do
       subject { require_gems }
-      let(:error_message) { 'No gem was informed' }
+      let(:error_message) { 'Gem was not informed' }
 
       it 'raise a StandardError with message' do
         expect{ subject }.to raise_error(StandardError, error_message)

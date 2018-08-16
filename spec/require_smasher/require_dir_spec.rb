@@ -26,6 +26,7 @@ RSpec.describe RequireDir do
 
         it 'raise error StandardError with message' do
           expect{ subject }.to raise_error(StandardError, /uninitialized constant/)
+          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
         end
       end
 
@@ -44,6 +45,7 @@ RSpec.describe RequireDir do
 
         it 'raise error StandardError with message' do
           expect{ subject }.to raise_error(StandardError, /uninitialized constant/)
+          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
         end
       end
 

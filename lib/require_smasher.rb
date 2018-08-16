@@ -4,32 +4,24 @@ require 'require_smasher/require_dir'
 
 def require_all(*required_list)
   directories = []
+  gems = []
 
   required_list.uniq.each do |required|
-    begin
-      require_gem(required)
-    rescue StandardError, LoadError
-      directories << required
-    end
+    directory = Dir.exist?(required)
+    directories << required if directory
+    gems << required unless directory
   end
 
-  # GENERALIZAR ERRO PARA GEM E DIRETORIO. Tratar raises especificos de diretorio e concatenar mensagem de não achou gem.
-  # Como mostrar os dois erros?
-  begin
-    require_dir(directories) unless directories.empty?
-  rescue StandardError, LoadError => error
-    raise StandardError, "Error attempting to require gem or directory. #{error.message}"
-  end
+  require_gem(gems) unless gems.empty?
+  require_dir(directories) unless directories.empty?
 end
 
 def require_gem(gems)
-  raise StandardError, 'No gem was informed' if gems.empty?
   return RequireGem.req([gems]) if gems.instance_of?(String)
   RequireGem.req(gems)
 end
 
 def require_dir(directories)
-  raise StandardError, 'No directory was informed' if directories.empty?
   return RequireDir.req([directories]) if directories.instance_of?(String)
   RequireDir.req(directories)
 end
