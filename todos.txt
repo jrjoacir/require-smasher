@@ -1,6 +1,4 @@
 tratar errors especificos com classe de erros a criar
 fazer readme em portugues
 resolver ofensores restantes do rubocop
-publicar gem
 atualizar readme para informar sobre gemas e arquitetura utilizada para desenvolvimento
-resolver interdependencia de arquivos dentro da lista de diretórios
