@@ -1,42 +1,35 @@
 require 'require_smasher/version'
 require 'require_smasher/require_gem'
 require 'require_smasher/require_dir'
-require 'require_smasher/require_elements'
 
 def require_all(*required_list)
-  required_list.uniq!
-  errors = []
+  directories = []
+  gems = []
 
-  required_list.each do |required|
-    begin
-      require_gems(required)
-    rescue StandardError => gem_error
-      begin
-        require_dirs(required)
-      rescue StandardError => dir_error
-        errors << gem_error.message
-        errors << dir_error.message
-      end
-    end
+  required_list.uniq.each do |required|
+    directory = Dir.exist?(required)
+    directories << required if directory
+    gems << required unless directory
   end
 
-  raise StandardError, errors unless errors.empty?
+  require_gem(gems) unless gems.empty?
+  require_dir(directories) unless directories.empty?
 end
 
-def require_gem(gem)
-  require_gems(gem)
+def require_gem(gems)
+  return RequireGem.req([gems]) if gems.instance_of?(String)
+  RequireGem.req(gems)
 end
 
-def require_dir(directory)
-  require_dirs(directory)
+def require_dir(directories)
+  return RequireDir.req([directories]) if directories.instance_of?(String)
+  RequireDir.req(directories)
 end
 
 def require_dirs(*directories)
-  raise StandardError, 'No directories was informed' if directories.empty?
-  RequireElements.require_elements(directories, RequireDir)
+  require_dir(directories)
 end
 
 def require_gems(*gems)
-  raise StandardError, 'No gems was informed' if gems.empty?
-  RequireElements.require_elements(gems, RequireGem)
+  require_gem(gems)
 end
