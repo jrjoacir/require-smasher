@@ -1,5 +1,6 @@
 require 'require_smasher/version'
 require 'require_smasher/require_gem'
+require 'require_smasher/require_file'
 require 'require_smasher/require_dir'
 
 def require_all(*required_list)
