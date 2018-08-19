@@ -2,19 +2,10 @@ require 'require_smasher/version'
 require 'require_smasher/require_gem'
 require 'require_smasher/require_file'
 require 'require_smasher/require_dir'
+require 'require_smasher/require_all'
 
 def require_all(*required_list)
-  directories = []
-  gems = []
-
-  required_list.uniq.each do |required|
-    directory = Dir.exist?(required)
-    directories << required if directory
-    gems << required unless directory
-  end
-
-  require_gem(gems) unless gems.empty?
-  require_dir(directories) unless directories.empty?
+  RequireAll.req(required_list)
 end
 
 def require_gem(gems)
@@ -23,8 +14,13 @@ def require_gem(gems)
 end
 
 def require_dir(directories)
-  return RequireDir.req([directories]) if directories.instance_of?(String)
-  RequireDir.req(directories)
+  return RequireFile.require_directories([directories]) if directories.instance_of?(String)
+  RequireFile.require_directories(directories)
+end
+
+def require_file(files)
+  return RequireFile.require_files([files]) if files.instance_of?(String)
+  RequireFile.require_files(files)
 end
 
 def require_dirs(*directories)
@@ -33,4 +29,8 @@ end
 
 def require_gems(*gems)
   require_gem(gems)
+end
+
+def require_files(*files)
+  require_file(files)
 end
