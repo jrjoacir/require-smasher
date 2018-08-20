@@ -1,6 +1,6 @@
 class D
-  def self.testar
+  def self.test
   end
 end
 
-D.testar
+D.test

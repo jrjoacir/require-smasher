@@ -1,6 +1,6 @@
 class Z
-  def self.testar
+  def self.test
   end
 end
 
-Z.testar
+Z.test

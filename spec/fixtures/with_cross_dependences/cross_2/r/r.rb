@@ -1,4 +1,4 @@
 class R
-  def self.testar
+  def self.test
   end
 end

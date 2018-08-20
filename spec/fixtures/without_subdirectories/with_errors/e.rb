@@ -1,6 +1,6 @@
 class E
-  def self.testar
+  def self.test
   end
 end
 
-E.testar
+E.test

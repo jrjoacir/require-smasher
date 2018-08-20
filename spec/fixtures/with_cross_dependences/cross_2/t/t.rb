@@ -1,7 +1,7 @@
 class T
-  def self.testar
-    S.testar
+  def self.test
+    S.test
   end
 end
 
-T.testar
+T.test

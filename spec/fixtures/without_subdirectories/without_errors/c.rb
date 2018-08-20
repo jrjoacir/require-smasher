@@ -1,8 +1,8 @@
 class C
-  def self.testar
-    B.testar
-    A.testar
+  def self.test
+    B.test
+    A.test
   end
 end
 
-C.testar
+C.test

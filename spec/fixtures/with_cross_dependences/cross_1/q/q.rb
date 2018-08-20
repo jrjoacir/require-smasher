@@ -1,7 +1,7 @@
 class Q
-  def self.testar
-    R.testar
+  def self.test
+    R.test
   end
 end
 
-Q.testar
+Q.test

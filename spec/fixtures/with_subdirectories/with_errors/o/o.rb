@@ -1,8 +1,8 @@
 class O
-  def self.testar
-    N.testar
-    M.testar
+  def self.test
+    N.test
+    M.test
   end
 end
 
-O.testar
+O.test

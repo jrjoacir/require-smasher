@@ -1,7 +1,7 @@
 class J
-  def self.testar
-    I.testar
+  def self.test
+    I.test
   end
 end
 
-J.testar
+J.test

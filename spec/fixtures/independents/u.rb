@@ -1,6 +1,6 @@
 class U
-  def self.testar
+  def self.test
   end
 end
 
-U.testar
+U.test
