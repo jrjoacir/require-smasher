@@ -22,7 +22,22 @@ RSpec.describe RequireFile do
     end
 
     context 'when file is not a Ruby File' do
-      xit 'test missing' do
+      context 'file with txt extension' do
+        let(:files) { ['../../spec/fixtures/is_not_a_ruby_file.txt'] }
+
+        it 'raise StandardError' do
+          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
+          expect{ subject }.to raise_error(StandardError, /cannot load such file/)
+        end
+      end
+
+      context 'file without extension' do
+        let(:files) { ['../../spec/fixtures/is_not_a_ruby_file'] }
+
+        it 'raise StandardError' do
+          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
+          expect{ subject }.to raise_error(StandardError, /cannot load such file/)
+        end
       end
     end
 
@@ -35,8 +50,16 @@ RSpec.describe RequireFile do
       end
     end
 
-    context 'when a file is required' do
+    context 'when a file with Ruby extension is required' do
       let(:files) { ['../../spec/fixtures/with_subdirectories/without_errors/i/i.rb'] }
+
+      it 'return nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'when a file without Ruby extension is required' do
+      let(:files) { ['../../spec/fixtures/with_subdirectories/without_errors/i/i'] }
 
       it 'return nil' do
         expect(subject).to be_nil
@@ -150,7 +173,7 @@ RSpec.describe RequireFile do
     context 'when directories do not have files' do
       let(:directories) { ['spec/fixtures/without_files'] }
 
-      it 'raise StandardError' do
+      it 'return a empty list of files' do
         expect(subject).to be_empty
       end
     end

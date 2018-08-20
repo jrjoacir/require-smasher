@@ -10,7 +10,7 @@ module RequireAll
     result = { files: [], gems: [] }
 
     elements.uniq.each do |element|
-      is_file = File.file?(element)
+      is_file = file?(element)
       is_directory = Dir.exist?(element)
       is_gem = !(is_file || is_directory)
 
@@ -21,5 +21,11 @@ module RequireAll
     result
   end
 
-  private_class_method :required_list_classified
+  def self.file?(file)
+    return true if File.file?(file)
+    return false if file.include?('.')
+    File.file?("#{file}.rb")
+  end
+
+  private_class_method :required_list_classified, :file?
 end
