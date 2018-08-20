@@ -50,6 +50,37 @@ RSpec.describe RequireSmasher do
     end
   end
 
+  context '#require_file' do
+    subject { require_file(file) }
+
+    context 'when file is invalid' do
+      let(:file) { 'invalid_file_1' }
+      let(:error_message) { "cannot load such file -- #{file}" }
+
+      it 'raise a StandardError' do
+        expect{ subject }.to raise_error(StandardError, /Error while requiring file invalid_file_1: cannot load such file/)
+      end
+    end
+
+    context 'when file is valid' do
+      context 'when file does not have Ruby extension' do
+        let(:file) { 'spec/fixtures/independents/u' }
+
+        it 'return nil' do
+          expect(subject).to be_nil
+        end
+      end
+
+      context 'when file has Ruby extension' do
+        let(:file) { 'spec/fixtures/independents/v.rb' }
+
+        it 'return nil' do
+          expect(subject).to be_nil
+        end
+      end
+    end
+  end
+
   context '#require_dir' do
     subject { require_dir(directory) }
 
@@ -115,15 +146,6 @@ RSpec.describe RequireSmasher do
   end
 
   context '#require_gems' do
-    context 'when gems are not informed' do
-      subject { require_gems }
-      let(:error_message) { 'Gem was not informed' }
-
-      it 'raise a StandardError with message' do
-        expect{ subject }.to raise_error(StandardError, error_message)
-      end
-    end
-
     context 'when gems are valid' do
       context 'when just one gem is informed' do
         subject { require_gems('rspec') }
@@ -138,6 +160,26 @@ RSpec.describe RequireSmasher do
 
         it 'return a list of required gems' do
           expect(subject).to eq ['rspec', 'rake']
+        end
+      end
+    end
+  end
+
+  context '#require_files' do
+    context 'when files are valid' do
+      context 'when just one file is informed' do
+        subject { require_files('spec/fixtures/independents/v.rb') }
+
+        it 'return nil' do
+          expect(subject).to be_nil
+        end
+      end
+
+      context 'when many files are informed' do
+        subject { require_files('spec/fixtures/independents/v.rb', 'spec/fixtures/independents/u') }
+
+        it 'return nil' do
+          expect(subject).to be_nil
         end
       end
     end
