@@ -21,7 +21,8 @@ module RequireFile
     files = []
     directories.uniq.each do |directory|
       raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
-      files.concat(Dir.glob(File.join(File.expand_path("./#{directory}"), '**', '*.rb')))
+      #files.concat(Dir.glob(File.join(File.expand_path("./#{directory}"), '**', '*.rb')))
+      files.concat(Dir.glob(File.join("./#{directory}", '**', '*.rb')))
     end
     files
   end
@@ -31,7 +32,8 @@ module RequireFile
 
     files.uniq.each do |file|
       begin
-        require_relative file
+        #require_relative file
+        require_relative File.expand_path("./#{file}")
       rescue LoadError, StandardError => error
         errors_list[:files_with_error] << file
         errors_list[:errors] << "Error while requiring file #{file}: #{error.message}"

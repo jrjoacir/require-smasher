@@ -2,8 +2,8 @@ module RequireAll
   def self.req(required_list)
     result = required_list_classified(required_list)
 
-    require_gem(result[:gems]) unless result[:gems].empty?
-    require_file(result[:files]) unless result[:files].empty?
+    RequireGem.req(result[:gems]) unless result[:gems].empty?
+    RequireFile.require_files(result[:files]) unless result[:files].empty?
   end
 
   def self.required_list_classified(elements)
@@ -21,9 +21,10 @@ module RequireAll
     result
   end
 
-  def self.file?(file)
+  def self.file?(element)
+    file = File.expand_path("./#{element}")
     return true if File.file?(file)
-    return false if file.include?('.')
+    return false if element.include?('.')
     File.file?("#{file}.rb")
   end
 

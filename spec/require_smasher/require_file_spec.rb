@@ -23,7 +23,7 @@ RSpec.describe RequireFile do
 
     context 'when file is not a Ruby File' do
       context 'file with txt extension' do
-        let(:files) { ['../../spec/fixtures/is_not_a_ruby_file.txt'] }
+        let(:files) { ['spec/fixtures/is_not_a_ruby_file.txt'] }
 
         it 'raise StandardError' do
           expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
@@ -32,7 +32,7 @@ RSpec.describe RequireFile do
       end
 
       context 'file without extension' do
-        let(:files) { ['../../spec/fixtures/is_not_a_ruby_file'] }
+        let(:files) { ['spec/fixtures/is_not_a_ruby_file'] }
 
         it 'raise StandardError' do
           expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
@@ -42,7 +42,13 @@ RSpec.describe RequireFile do
     end
 
     context 'when is impossible to resolve interdependence files' do
-      let(:files) { RequireFile.files(['spec/fixtures/with_subdirectories/with_errors']) }
+      let(:files) do
+        [
+          'spec/fixtures/with_subdirectories/with_errors/m/m',
+          'spec/fixtures/with_subdirectories/with_errors/o/o',
+          'spec/fixtures/with_subdirectories/with_errors/p/p'
+        ]
+      end
 
       it 'raise StandardError' do
         expect{ subject }.to raise_error(StandardError, /uninitialized constant/)
@@ -51,7 +57,7 @@ RSpec.describe RequireFile do
     end
 
     context 'when a file with Ruby extension is required' do
-      let(:files) { ['../../spec/fixtures/with_subdirectories/without_errors/i/i.rb'] }
+      let(:files) { ['spec/fixtures/with_subdirectories/without_errors/i/i.rb'] }
 
       it 'return nil' do
         expect(subject).to be_nil
@@ -59,7 +65,7 @@ RSpec.describe RequireFile do
     end
 
     context 'when a file without Ruby extension is required' do
-      let(:files) { ['../../spec/fixtures/with_subdirectories/without_errors/i/i'] }
+      let(:files) { ['spec/fixtures/with_subdirectories/without_errors/i/i'] }
 
       it 'return nil' do
         expect(subject).to be_nil
@@ -69,8 +75,8 @@ RSpec.describe RequireFile do
     context 'when independent files are required' do
       let(:files) do
         [
-          '../../spec/fixtures/independents/u.rb',
-          '../../spec/fixtures/independents/v.rb'
+          'spec/fixtures/independents/u.rb',
+          'spec/fixtures/independents/v.rb'
         ]
       end
 
@@ -82,8 +88,8 @@ RSpec.describe RequireFile do
     context 'when interdependent files are required' do
       let(:files) do
         [
-          '../../spec/fixtures/dependents/x.rb',
-          '../../spec/fixtures/dependents/z.rb'
+          'spec/fixtures/dependents/x.rb',
+          'spec/fixtures/dependents/z.rb'
         ]
       end
 
