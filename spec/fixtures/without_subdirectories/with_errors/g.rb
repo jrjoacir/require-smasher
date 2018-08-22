@@ -1,8 +1,8 @@
 class G
-  def self.testar
-    F.testar
-    E.testar
+  def self.test
+    F.test
+    E.test
   end
 end
 
-G.testar
+G.test

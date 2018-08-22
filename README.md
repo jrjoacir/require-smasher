@@ -7,7 +7,9 @@ This project was born just to solve a problem: require ruby files **recursively*
 - require ruby files recursively in a list of directories and their sub-directories, trying to resolve interdependent files (`require_dirs`)
 - require a gem (`require_gem`)
 - require a list of gems (`require_gems`)
-- require a **list of gems** and ruby files in a **list of directories** and their sub-directories with just **one command** (`require_all`)
+- require a ruby file (`require_file`)
+- require a list of ruby files (`require_files`)
+- require a **list of gems**, ruby files in a **list of directories** and their sub-directories and a **list of files** with just **one command** (`require_all`)
 
 ## Installation
 
@@ -30,9 +32,11 @@ Or install it yourself as:
 ### Require All
 
 ```ruby
-require_all 'directory_1', 'directory_2/sub-directory', 'gem_1', 'gem_2'
+require_all 'directory_1', 'directory_2/sub-directory', 'gem_1', 'gem_2', 'directory_3/filename_1', 'filename_2'
 ```
-This command will require all ruby files found in directory `directory_1` and its sub-directories, all ruby files in directory `directory_2/sub-directory` and in its sub-directories, gem `gem_1` and gem `gem_2`.
+This command will require all ruby files found in directory `directory_1` and its sub-directories, all ruby files in directory `directory_2/sub-directory` and in its sub-directories, gem `gem_1` and gem `gem_2`, and files `directory_3/filename_1.rb` and `filename_2.rb`.
+
+**Note**: the order of elements is not important, because Require Smasher will try to resolve any dependences among them.
 
 ### Require Dir
 
@@ -61,6 +65,20 @@ This command will require the informed gem.
 require_gems 'gem_1', 'gem_2'
 ```
 This command accept a list of gems and it will require gems `gem_1` and `gem_2`.
+
+### Require File
+
+```ruby
+require_file 'filename'
+```
+This command will require the file `filename.rb`. You don't have to inform Ruby extension file (**rb**), if you want.
+
+### Require Files
+
+```ruby
+require_gems 'filename_1', 'directory/filename_2', 'directory/filename_3.rb'
+```
+This command accept a list of files and it will require files `filename_1.rb`, `directory/filename_2.rb` and `directory/filename_3.rb`. You don't have to inform Ruby extension file (**rb**), if you want.
 
 ## Development
 

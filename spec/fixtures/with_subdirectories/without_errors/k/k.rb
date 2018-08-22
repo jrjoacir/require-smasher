@@ -1,8 +1,8 @@
 class K
-  def self.testar
-    J.testar
-    I.testar
+  def self.test
+    J.test
+    I.test
   end
 end
 
-K.testar
+K.test
