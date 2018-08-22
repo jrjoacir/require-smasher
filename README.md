@@ -76,7 +76,7 @@ This command will require the file `filename.rb`. You don't have to inform Ruby 
 ### Require Files
 
 ```ruby
-require_gems 'filename_1', 'directory/filename_2', 'directory/filename_3.rb'
+require_files 'filename_1', 'directory/filename_2', 'directory/filename_3.rb'
 ```
 This command accept a list of files and it will require files `filename_1.rb`, `directory/filename_2.rb` and `directory/filename_3.rb`. You don't have to inform Ruby extension file (**rb**), if you want.
 
