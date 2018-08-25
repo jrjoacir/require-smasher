@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jr.joacir@gmail.com"]
 
   spec.summary       = %q{A simple way to require ruby files in directories and in its sub-directories, and gems.}
-  spec.description   = %q{Require Smasher give you the power to require ruby files in a list of directories and their sub-directories (recursively), and a list of gems, with just one command.}
+  spec.description   = %q{Require Smasher give you the power to require ruby files in a list of directories and their sub-directories (recursively), a list of ruby files and a list of gems, with just one command.}
   spec.homepage      = "https://github.com/jrjoacir/require-smasher"
   spec.license       = "MIT"
 
