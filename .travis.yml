@@ -7,3 +7,4 @@ before_install:
   - bundle install
 install:
   - bundle exec rspec
+  - bundle exec rubocop
