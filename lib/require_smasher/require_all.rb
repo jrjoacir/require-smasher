@@ -1,24 +1,29 @@
+# Handle requiring files inside directories, files and gems
 module RequireAll
   def self.req(required_list)
     result = required_list_classified(required_list)
+    gems = result[:gems]
+    files = result[:files]
 
-    RequireGem.req(result[:gems]) unless result[:gems].empty?
-    RequireFile.require_files(result[:files]) unless result[:files].empty?
+    RequireGem.req(gems) unless gems.empty?
+    RequireFile.require_files(files) unless files.empty?
   end
 
   def self.required_list_classified(elements)
-    result = { files: [], gems: [] }
+    files = []
+    gems = []
 
     elements.uniq.each do |element|
-      is_file = file?(element)
-      is_directory = Dir.exist?(element)
-      is_gem = !(is_file || is_directory)
-
-      result[:files] << element if is_file
-      result[:files].concat(RequireFile.files([element])) if is_directory
-      result[:gems] << element if is_gem
+      case element_type(element)
+      when :file
+        files << element
+      when :directory
+        files.concat(RequireFile.files([element]))
+      else
+        gems << element
+      end
     end
-    result
+    { files: files, gems: gems }
   end
 
   def self.file?(element)
@@ -28,5 +33,11 @@ module RequireAll
     File.file?("#{file}.rb")
   end
 
-  private_class_method :required_list_classified, :file?
+  def self.element_type(element)
+    return :file if file?(element)
+    return :directory if Dir.exist?(element)
+    :gem
+  end
+
+  private_class_method :required_list_classified, :file?, :element_type
 end
