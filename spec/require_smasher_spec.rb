@@ -36,7 +36,7 @@ RSpec.describe RequireSmasher do
       let(:gem) { 'invalid_gem_1' }
       let(:error_message) { "cannot load such file -- #{gem}" }
 
-      it 'raise a LoadError with message for a gem' do
+      it 'raise a LoadError' do
         expect{ subject }.to raise_error(LoadError, error_message)
       end
     end
@@ -44,8 +44,8 @@ RSpec.describe RequireSmasher do
     context 'when gem is valid' do
       let(:gem) { 'rake' }
 
-      it 'return a list of required gems' do
-        expect(subject).to eq ['rake']
+      it 'return gem name' do
+        expect(subject).to eq gem
       end
     end
   end
@@ -57,8 +57,8 @@ RSpec.describe RequireSmasher do
       let(:file) { 'invalid_file_1' }
       let(:error_message) { "cannot load such file -- #{file}" }
 
-      it 'raise a StandardError' do
-        expect{ subject }.to raise_error(StandardError, /Error while requiring file invalid_file_1: cannot load such file/)
+      it 'raise a LoadError' do
+        expect{ subject }.to raise_error(LoadError, /cannot load such file -- /)
       end
     end
 

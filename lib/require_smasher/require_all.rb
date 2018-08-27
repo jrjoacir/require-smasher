@@ -19,7 +19,7 @@ module RequireAll
       elements.uniq.each do |element|
         case element_type(element)
         when :file then files << element
-        when :directory then files.concat(RequireFile.files([element]))
+        when :directory then files.concat(FileSmasher.files_by(element))
         else gems << element
         end
       end
@@ -34,8 +34,8 @@ module RequireAll
     end
 
     def element_type(element)
-      return :file if file?(element)
       return :directory if Dir.exist?(element)
+      return :file if file?(element)
       :gem
     end
   end

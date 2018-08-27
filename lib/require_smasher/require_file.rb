@@ -1,16 +1,15 @@
 # Handle requiring files
 module RequireFile
   class << self
-    def require_files(files, attempt = 0)
+    def require_files(files)
       raise StandardError, 'File was not informed' if files.empty?
       errors_list = req_files(files)
       files_with_error = errors_list[:files_with_error]
 
       return if files_with_error.empty?
-      attempt += 1 if files == files_with_error
 
-      raise StandardError, errors_list[:errors] if attempt > 1
-      require_files(files_with_error, attempt)
+      raise StandardError, errors_list[:errors] if files == files_with_error
+      require_files(files_with_error)
     end
 
     def require_directories(directories)
@@ -23,18 +22,13 @@ module RequireFile
 
       files = []
       directories.uniq.each do |directory|
-        files.concat(files_by(directory))
+        files.concat(FileSmasher.files_by(directory))
       end
 
       files
     end
 
     private
-
-    def files_by(directory)
-      raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
-      Dir.glob(File.join("./#{directory}", '**', '*.rb'))
-    end
 
     def req_files(files)
       errors_list = { files_with_error: [], errors: [] }
