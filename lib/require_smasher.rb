@@ -1,11 +1,15 @@
 require 'require_smasher/version'
 require 'require_smasher/file_smasher'
-require 'require_smasher/require_gem'
+require 'require_smasher/classifier'
 require 'require_smasher/require_file'
-require 'require_smasher/require_all'
 
 def require_all(*required_list)
-  RequireAll.req(required_list)
+  classified = Classifier.classify(required_list)
+  gems = classified[:gems]
+  files = classified[:files]
+
+  gems.uniq.each { |gem| require gem } unless gems.empty?
+  RequireFile.require(files) unless files.empty?
 end
 
 def require_gem(gem)
@@ -27,9 +31,10 @@ def require_dirs(*directories)
 end
 
 def require_gems(*gems)
-  RequireGem.req(gems)
+  raise StandardError, 'Gem was not informed' if gems.empty?
+  gems.uniq.each { |gem| require gem }
 end
 
 def require_files(*files)
-  RequireFile.require_files(files)
+  RequireFile.require(files)
 end
