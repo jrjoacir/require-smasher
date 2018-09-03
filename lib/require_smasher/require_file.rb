@@ -1,45 +1,38 @@
+# Handle requiring files
+
 module RequireFile
-  def self.require_files(files, attempt = 0)
-    raise StandardError, 'File was not informed' if files.empty?
-    errors_list = req_files(files)
+  class << self
+    def require(files)
+      raise StandardError, 'File was not informed' if files.empty?
+      errors_list = require_files(files)
+      files_with_error = errors_list[:files_with_error]
 
-    return if errors_list[:files_with_error].empty?
-    attempt += 1 if files == errors_list[:files_with_error]
+      return if files_with_error.empty?
 
-    raise StandardError, errors_list[:errors] if attempt > 1
-    require_files(errors_list[:files_with_error], attempt)
-  end
-
-  def self.require_directories(directories)
-    raise StandardError, 'Directory was not informed' if directories.empty?
-    require_files(files(directories))
-  end
-
-  def self.files(directories)
-    raise StandardError, 'Directory was not informed' if directories.empty?
-
-    files = []
-    directories.uniq.each do |directory|
-      raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
-      files.concat(Dir.glob(File.join("./#{directory}", '**', '*.rb')))
+      raise StandardError, errors_list[:errors] if files == files_with_error
+      require(files_with_error)
     end
-    files
-  end
 
-  def self.req_files(files)
-    errors_list = { files_with_error: [], errors: [] }
+    def require_directories(directories)
+      raise StandardError, 'Directory was not informed' if directories.empty?
+      require(FileSmasher.files(directories))
+    end
 
-    files.uniq.each do |file|
-      begin
-        require_relative File.expand_path("./#{file}")
-      rescue LoadError, StandardError => error
-        errors_list[:files_with_error] << file
-        errors_list[:errors] << "Error while requiring file #{file}: #{error.message}"
+    private
+
+    def require_files(files)
+      errors_list = { files_with_error: [], errors: [] }
+
+      files.uniq.each do |file|
+        begin
+          require_relative File.expand_path("./#{file}")
+        rescue LoadError, StandardError => error
+          errors_list[:files_with_error] << file
+          errors_list[:errors] << "Error while requiring file #{file}: #{error.message}"
+        end
       end
+
+      errors_list
     end
-
-    errors_list
   end
-
-  private_class_method :req_files
 end

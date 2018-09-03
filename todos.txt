@@ -1,4 +1,3 @@
 tratar errors especificos com classe de erros a criar
 fazer readme em portugues
-resolver ofensores restantes do rubocop
 atualizar readme para informar sobre gemas e arquitetura utilizada para desenvolvimento

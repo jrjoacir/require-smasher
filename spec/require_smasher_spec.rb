@@ -14,7 +14,6 @@ RSpec.describe RequireSmasher do
       it 'raise a StandardError with message for gems and directories' do
         expect{ subject }.to raise_error(LoadError, error_message)
       end
-
     end
 
     context 'when required list is valid' do
@@ -36,7 +35,7 @@ RSpec.describe RequireSmasher do
       let(:gem) { 'invalid_gem_1' }
       let(:error_message) { "cannot load such file -- #{gem}" }
 
-      it 'raise a LoadError with message for a gem' do
+      it 'raise a LoadError' do
         expect{ subject }.to raise_error(LoadError, error_message)
       end
     end
@@ -44,8 +43,8 @@ RSpec.describe RequireSmasher do
     context 'when gem is valid' do
       let(:gem) { 'rake' }
 
-      it 'return a list of required gems' do
-        expect(subject).to eq ['rake']
+      it 'return gem name' do
+        expect(subject).to eq gem
       end
     end
   end
@@ -57,8 +56,8 @@ RSpec.describe RequireSmasher do
       let(:file) { 'invalid_file_1' }
       let(:error_message) { "cannot load such file -- #{file}" }
 
-      it 'raise a StandardError' do
-        expect{ subject }.to raise_error(StandardError, /Error while requiring file invalid_file_1: cannot load such file/)
+      it 'raise a LoadError' do
+        expect{ subject }.to raise_error(LoadError, /cannot load such file -- /)
       end
     end
 
@@ -146,20 +145,46 @@ RSpec.describe RequireSmasher do
   end
 
   context '#require_gems' do
+    subject { require_gems(gems) }
+
+    context 'when gems are invalid' do
+      context 'when gem is not informed' do
+        it 'raise StandardError' do
+          expect{ require_gems }.to raise_error(StandardError, 'Gem was not informed')
+        end
+      end
+
+      context 'when gem is not installed' do
+        let(:gems) { 'gem' }
+
+        it 'raise LoadError' do
+          expect{ subject }.to raise_error(LoadError, "cannot load such file -- #{gems}")
+        end
+      end
+
+      context 'when another error raises' do
+        let(:gems) { [['gem']] }
+
+        it 'raise StandardError' do
+          expect{ subject }.to raise_error(StandardError)
+        end
+      end
+    end
+
     context 'when gems are valid' do
       context 'when just one gem is informed' do
-        subject { require_gems('rspec') }
-
+        let(:gems) { 'rspec' }
         it 'return a list of required gems' do
-          expect(subject).to eq ['rspec']
+          expect(subject).to eq [gems]
         end
       end
 
       context 'when many gems are informed' do
         subject { require_gems('rspec', 'rake') }
+        let(:gems) { ['rspec', 'rake'] }
 
         it 'return a list of required gems' do
-          expect(subject).to eq ['rspec', 'rake']
+          expect(subject).to eq gems
         end
       end
     end

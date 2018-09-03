@@ -1,8 +1,8 @@
 require "spec_helper"
 
 RSpec.describe RequireFile do
-  context '#require_files' do
-    subject { RequireFile.require_files(files) }
+  context '#require' do
+    subject { RequireFile.require(files) }
 
     context 'when file is not informed' do
       let(:files) { [] }
@@ -153,47 +153,6 @@ RSpec.describe RequireFile do
         it 'return nil' do
           expect(subject).to be_nil
         end
-      end
-    end
-  end
-
-  context '#files' do
-    subject { RequireFile.files(directories) }
-
-    context 'when directory is not informed' do
-      let(:directories) { [] }
-
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, 'Directory was not informed')
-      end
-    end
-
-    context 'when directory does not exist' do
-      let(:directories) { ['inexistent_directory'] }
-
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, "Directory '#{directories.first}' does not exist")
-      end
-    end
-
-    context 'when directories do not have files' do
-      let(:directories) { ['spec/fixtures/without_files'] }
-
-      it 'return a empty list of files' do
-        expect(subject).to be_empty
-      end
-    end
-    
-    context 'when directories have files' do
-      let(:directories) do
-        [
-          'spec/fixtures/with_subdirectories/without_errors',
-          'spec/fixtures/without_subdirectories/without_errors'
-        ]
-      end
-
-      it 'return a list of files' do
-        expect(subject).not_to be_empty
       end
     end
   end
