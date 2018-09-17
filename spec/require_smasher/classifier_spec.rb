@@ -28,8 +28,8 @@ RSpec.describe Classifier do
         [
           './spec/fixtures/dependents/x.rb',
           './spec/fixtures/dependents/z.rb',
-          './spec/fixtures/independents/u.rb',
-          './spec/fixtures/independents/v.rb'
+          './spec/fixtures/independents/v.rb',
+          './spec/fixtures/independents/u.rb'
         ]
       end
       let(:classified_list) { { files: files, gems: [] } }
