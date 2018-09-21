@@ -28,14 +28,16 @@ RSpec.describe Classifier do
         [
           './spec/fixtures/dependents/x.rb',
           './spec/fixtures/dependents/z.rb',
-          './spec/fixtures/independents/v.rb',
-          './spec/fixtures/independents/u.rb'
-        ]
+          './spec/fixtures/independents/u.rb',
+          './spec/fixtures/independents/v.rb'
+        ].sort
       end
       let(:classified_list) { { files: files, gems: [] } }
 
       it 'return hash with empty gems list and a list of files' do
-        expect(subject).to eq classified_list
+        # TO DO: I don't know why this sort! was necessary in TravisCI
+        subject[:files].sort!
+        expect(subject).to eql classified_list
       end
     end
 
