@@ -32,6 +32,7 @@ end
 
 def require_gems(*gems)
   raise StandardError, 'Gem was not informed' if gems.empty?
+
   gems.uniq.each { |gem| require gem }
 end
 

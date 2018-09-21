@@ -4,6 +4,7 @@ module FileSmasher
   class << self
     def files_by(directory)
       raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
+
       Dir.glob("./#{directory}/**/*.rb")
     end
 
@@ -22,6 +23,7 @@ module FileSmasher
       file = File.expand_path("./#{element}")
       return true if File.file?(file)
       return false if element.include?('.')
+
       File.file?("#{file}.rb")
     end
   end

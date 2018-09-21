@@ -21,6 +21,7 @@ module Classifier
     def element_type(element)
       return :directory if Dir.exist?(element)
       return :file if FileSmasher.file?(element)
+
       :gem
     end
   end
