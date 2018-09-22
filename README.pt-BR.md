@@ -8,14 +8,14 @@ Este projeto nasceu apenas para resolver um problema: fazer `require` de arquivo
 - fazer `require` em arquivos `ruby` recursivamente em um diretório e seus subdiretórios, tentando resolver interdependências entre os arquivos (`require_dir`)
 - fazer `require` em arquivos `ruby` recursivamente em uma lista de diretórios e seus subdiretórios, tentando resolver interdependências entre os arquivos (`require_dirs`)
 - fazer `require` de uma `gem` (`require_gem`)
-- fazer `require` em uma lista de `gems` (`require_gems`)
+- fazer `require` de uma lista de `gems` (`require_gems`)
 - fazer `require` de um arquivo `ruby` (`require_file`)
-- fazer `require` em uma lista de arquivos `ruby` (`require_files`)
-- fazer `require` em uma **lista de `gems`**, arquivos `ruby` em uma **lista de diretórios** e seus subdiretórios e uma **lista de arquivos** com apenas **um comando** (`require_all`)
+- fazer `require` de uma lista de arquivos `ruby` (`require_files`)
+- fazer `require` de uma **lista de `gems`**, arquivos `ruby` em uma **lista de diretórios** e seus subdiretórios e uma **lista de arquivos** com apenas **um comando** (`require_all`)
 
 ## Instalação
 
-Adicione esta linha no arquivo Gemfile de sua aplicação:
+Adicione esta linha no arquivo `Gemfile` de sua aplicação:
 
 ```ruby
 gem 'require_smasher'
@@ -37,9 +37,9 @@ Ou instale-o isoladamente:
 require_all 'directory_1', 'directory_2/sub-directory', 'gem_1', 'gem_2', 'directory_3/filename_1', 'filename_2'
 ```
 
-Este comando fará o `require` de todos os arquivos `ruby` encontrados no diretório `directory_1` e nos seus subdiretórios, todos os arquivos `ruby` no diretório `directory_2/sub-directory` e nos seus subdiretórios, a `gem` `gem_1` e a `gem` `gem_2`, e os arquivos `directory_3/filename_1.rb` and `filename_2.rb`.
+Este comando fará o `require` de todos os arquivos `ruby` encontrados no diretório `directory_1` e nos seus subdiretórios, todos os arquivos `ruby` no diretório `directory_2/sub-directory` e nos seus subdiretórios, da `gem` `gem_1` e da `gem` `gem_2`, e dos arquivos `directory_3/filename_1.rb` e `filename_2.rb`.
 
-**Observação:** a ordem dos elementos não importa, porque o `Require Smasher` tentará resolver qualquer dependência entre eles.
+**Observação:** a ordem dos elementos não importa, pois o `Require Smasher` tentará resolver qualquer dependência entre eles.
 
 ### Require Dir
 
@@ -85,18 +85,18 @@ Este comando aceita uma lista de arquivos e fará o `require` dos arquivos `file
 
 ## Desenvolvimento
 
-Depois de dar `checkout` neste repositório, execute `bin/setup` para instalar as dependências. Então, execute `rake spec` para executar os testes. Você pode também executar `bin/console` para abrir um `prompt` interativo que permitirá você experimentar esta biblioteca.
+Depois de dar `checkout` neste repositório, execute `bin/setup` para instalar as dependências. Então, execute `rake spec` para executar os testes. Você pode também executar `bin/console` para abrir um `prompt` interativo que permitirá você experimentar esta biblioteca (`gem`).
 
 Para instalar esta `gem` dentro de uma máquina local, execute `bundle exec rake install`. Para lançar uma nova versão, atualize o número da versão no arquivo `version.rb`, e então execute `bundle exec rake release`, ele criará uma `tag` do `git` para a versão, dará `push` dos `commits` do `git`, e do arquivo `.gem` para [rubygems.org](https://rubygems.org).
 
 ## Contribuindo
 
-Reportar erros e `pull requests` são bemvindo no GitHub em https://github.com/jrjoacir/require-smasher. Este projeto tem a intenção de ser seguro, espaço bem-vindo para colaboração, e é esperado que os contribuidores adiram ao código de conduta do [Contributor Covenant](http://contributor-covenant.org).
+Reportar erros e `pull requests` são bem-vindo no GitHub em https://github.com/jrjoacir/require-smasher. Este projeto tem a intenção de ser seguro, espaço bem-vindo para colaboração, e é esperado que os contribuidores adiram ao código de conduta do [Contributor Covenant](http://contributor-covenant.org).
 
 ## Licença
 
-Esta `gem` está disponível como código aberto e está registrada sobres os termos de licença do [MIT License](http://opensource.org/licenses/MIT).
+Esta `gem` está disponível como código aberto e está registrada sobres os termos de licença da [MIT License](http://opensource.org/licenses/MIT).
 
-## Códido de Conduta
+## Código de Conduta
 
 Todos que interagirem com o código fonte do projeto RequireSmasher, `issue trackers`, salas de bate-papo e lista de emails é esperado seguir o [código de conduta](https://github.com/[USERNAME]/require_smasher/blob/master/CODE_OF_CONDUCT.md).
