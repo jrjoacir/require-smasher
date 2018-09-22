@@ -2,6 +2,14 @@ require 'require_smasher/version'
 require 'require_smasher/file_smasher'
 require 'require_smasher/classifier'
 require 'require_smasher/require_file'
+require 'require_smasher/errors/base_error'
+require 'require_smasher/errors/not_informed_error'
+require 'require_smasher/errors/not_informed_error/dir_not_informed_error'
+require 'require_smasher/errors/not_informed_error/file_not_informed_error'
+require 'require_smasher/errors/not_informed_error/gem_not_informed_error'
+require 'require_smasher/errors/not_exist_error'
+require 'require_smasher/errors/not_exist_error/dir_not_exist_error'
+require 'require_smasher/errors/require_file_error'
 
 def require_all(*required_list)
   classified = Classifier.classify(required_list)
@@ -31,7 +39,7 @@ def require_dirs(*directories)
 end
 
 def require_gems(*gems)
-  raise StandardError, 'Gem was not informed' if gems.empty?
+  raise GemNotInformedError if gems.empty?
 
   gems.uniq.each { |gem| require gem }
 end

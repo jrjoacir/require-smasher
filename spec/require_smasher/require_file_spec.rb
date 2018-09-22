@@ -7,8 +7,8 @@ RSpec.describe RequireFile do
     context 'when file is not informed' do
       let(:files) { [] }
 
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, 'File was not informed')
+      it 'raise FileNotInformedError' do
+        expect{ subject }.to raise_error(FileNotInformedError, 'File was not informed')
       end
     end
 
@@ -16,8 +16,8 @@ RSpec.describe RequireFile do
       let(:files) { ['inexistent_file'] }
       let(:error_message) { "Error while requiring file #{files.first}: cannot load such file" }
 
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, /#{error_message}/)
+      it 'raise RequireFileError' do
+        expect{ subject }.to raise_error(RequireFileError, /#{error_message}/)
       end
     end
 
@@ -25,18 +25,18 @@ RSpec.describe RequireFile do
       context 'file with txt extension' do
         let(:files) { ['spec/fixtures/is_not_a_ruby_file.txt'] }
 
-        it 'raise StandardError' do
-          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
-          expect{ subject }.to raise_error(StandardError, /cannot load such file/)
+        it 'raise RequireFileError' do
+          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
+          expect{ subject }.to raise_error(RequireFileError, /cannot load such file/)
         end
       end
 
       context 'file without extension' do
         let(:files) { ['spec/fixtures/is_not_a_ruby_file'] }
 
-        it 'raise StandardError' do
-          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
-          expect{ subject }.to raise_error(StandardError, /cannot load such file/)
+        it 'raise RequireFileError' do
+          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
+          expect{ subject }.to raise_error(RequireFileError, /cannot load such file/)
         end
       end
     end
@@ -50,9 +50,9 @@ RSpec.describe RequireFile do
         ]
       end
 
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, /uninitialized constant/)
-        expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
+      it 'raise RequireFileError' do
+        expect{ subject }.to raise_error(RequireFileError, /uninitialized constant/)
+        expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
       end
     end
 
@@ -105,16 +105,16 @@ RSpec.describe RequireFile do
     context 'when directory is not informed' do
       let(:directories) { [] }
       
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, 'Directory was not informed')
+      it 'raise DirNotInformedError' do
+        expect{ subject }.to raise_error(DirNotInformedError, 'Directory was not informed')
       end
     end
 
     context 'when directory does not exist' do
       let(:directories) { ['dir'] }
       
-      it 'raise error StandardError with message' do
-        expect{ subject }.to raise_error(StandardError, "Directory '#{directories.first}' does not exist")
+      it 'raise DirNotExistError' do
+        expect{ subject }.to raise_error(DirNotExistError, "Directory '#{directories.first}' does not exist")
       end
     end
 
@@ -122,9 +122,9 @@ RSpec.describe RequireFile do
       context 'when require dependencies are not solved' do
         let(:directories) { ['spec/fixtures/without_subdirectories/with_errors'] }
 
-        it 'raise error StandardError with message' do
-          expect{ subject }.to raise_error(StandardError, /uninitialized constant/)
-          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
+        it 'raise RequireFileError' do
+          expect{ subject }.to raise_error(RequireFileError, /uninitialized constant/)
+          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
         end
       end
 
@@ -141,9 +141,9 @@ RSpec.describe RequireFile do
       context 'when require dependencies are not solved' do
         let(:directories) { ['spec/fixtures/with_subdirectories/with_errors'] }
 
-        it 'raise error StandardError with message' do
-          expect{ subject }.to raise_error(StandardError, /uninitialized constant/)
-          expect{ subject }.to raise_error(StandardError, /Error while requiring file/)
+        it 'raise RequireFileError' do
+          expect{ subject }.to raise_error(RequireFileError, /uninitialized constant/)
+          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
         end
       end
 

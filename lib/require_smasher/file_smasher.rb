@@ -3,13 +3,13 @@
 module FileSmasher
   class << self
     def files_by(directory)
-      raise StandardError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
+      raise DirNotExistError, "Directory '#{directory}' does not exist" unless Dir.exist?(directory)
 
       Dir.glob("./#{directory}/**/*.rb")
     end
 
     def files(directories)
-      raise StandardError, 'Directory was not informed' if directories.empty?
+      raise DirNotInformedError if directories.empty?
 
       files = []
       directories.uniq.each do |directory|

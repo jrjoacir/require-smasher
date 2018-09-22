@@ -106,8 +106,8 @@ RSpec.describe RequireSmasher do
       subject { require_dirs }
       let(:error_message) { 'Directory was not informed' }
 
-      it 'raise a StandardError with message' do
-        expect{ subject }.to raise_error(StandardError, error_message)
+      it 'raise DirNotInformedError' do
+        expect{ subject }.to raise_error(DirNotInformedError, error_message)
       end
     end
 
@@ -149,8 +149,8 @@ RSpec.describe RequireSmasher do
 
     context 'when gems are invalid' do
       context 'when gem is not informed' do
-        it 'raise StandardError' do
-          expect{ require_gems }.to raise_error(StandardError, 'Gem was not informed')
+        it 'raise GemNotInformedError' do
+          expect{ require_gems }.to raise_error(GemNotInformedError, 'Gem was not informed')
         end
       end
 

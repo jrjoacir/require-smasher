@@ -6,8 +6,8 @@ RSpec.describe FileSmasher do
 
     context 'when directory does not exist' do
       let(:directory) { 'dir' }
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, "Directory '#{directory}' does not exist")
+      it 'raise DirNotExistError' do
+        expect{ subject }.to raise_error(DirNotExistError, "Directory '#{directory}' does not exist")
       end
     end
 
@@ -34,16 +34,16 @@ RSpec.describe FileSmasher do
     context 'when directory is not informed' do
       let(:directories) { [] }
 
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, 'Directory was not informed')
+      it 'raise DirNotInformedError' do
+        expect{ subject }.to raise_error(DirNotInformedError, 'Directory was not informed')
       end
     end
 
     context 'when directory does not exist' do
       let(:directories) { ['inexistent_directory'] }
 
-      it 'raise StandardError' do
-        expect{ subject }.to raise_error(StandardError, "Directory '#{directories.first}' does not exist")
+      it 'raise DirNotExistError' do
+        expect{ subject }.to raise_error(DirNotExistError, "Directory '#{directories.first}' does not exist")
       end
     end
 
