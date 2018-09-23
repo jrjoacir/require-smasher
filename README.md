@@ -1,7 +1,7 @@
 # RequireSmasher
 [![Build Status](https://travis-ci.com/jrjoacir/require-smasher.svg?branch=master)](https://travis-ci.com/jrjoacir/require-smasher)
 
-Leia esta documentação em [Português do Brasil](README.pt-BR.md)
+Leia esta documentação em [Português do Brasil](README.pt-BR.md).
 
 This project was born just to solve a problem: require ruby files **recursively** in a directory. However it grew up and learned to solve other simple problems:
 

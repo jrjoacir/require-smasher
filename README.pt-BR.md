@@ -1,7 +1,7 @@
 # RequireSmasher
 [![Build Status](https://travis-ci.com/jrjoacir/require-smasher.svg?branch=master)](https://travis-ci.com/jrjoacir/require-smasher)
 
-Read this documentation in [English](README.md)
+Read this documentation in [English](README.md).
 
 Este projeto nasceu apenas para resolver um problema: fazer `require` de arquivos em um diretório recursivamente. Porém ele cresceu e aprendeu a resolver outros problemas simples:
 
