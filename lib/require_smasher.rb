@@ -13,10 +13,9 @@ require 'require_smasher/errors/require_file_error'
 
 def require_all(*required_list)
   classified = Classifier.classify(required_list)
-  gems = classified[:gems]
   files = classified[:files]
 
-  gems.uniq.each { |gem| require gem } unless gems.empty?
+  classified[:gems].uniq.each { |gem| require gem }
   RequireFile.require(files) unless files.empty?
 end
 

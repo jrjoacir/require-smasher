@@ -1,3 +1,1 @@
-tratar errors especificos com classe de erros a criar
-fazer readme em portugues
 atualizar readme para informar sobre gemas e arquitetura utilizada para desenvolvimento
