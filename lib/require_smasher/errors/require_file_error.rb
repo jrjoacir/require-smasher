@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Define class for handle error when a file is required
 
 class RequireFileError < BaseError

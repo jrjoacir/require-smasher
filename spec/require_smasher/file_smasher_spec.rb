@@ -1,13 +1,15 @@
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe FileSmasher do
-  context '#files_by' do
+  describe '#files_by' do
     subject { FileSmasher.files_by(directory) }
 
     context 'when directory does not exist' do
       let(:directory) { 'dir' }
       it 'raise DirNotExistError' do
-        expect{ subject }.to raise_error(DirNotExistError, "Directory '#{directory}' does not exist")
+        expect { subject }.to raise_error(DirNotExistError, "Directory '#{directory}' does not exist")
       end
     end
 
@@ -28,14 +30,14 @@ RSpec.describe FileSmasher do
     end
   end
 
-  context '#files' do
+  describe '#files' do
     subject { FileSmasher.files(directories) }
 
     context 'when directory is not informed' do
       let(:directories) { [] }
 
       it 'raise DirNotInformedError' do
-        expect{ subject }.to raise_error(DirNotInformedError, 'Directory was not informed')
+        expect { subject }.to raise_error(DirNotInformedError, 'Directory was not informed')
       end
     end
 
@@ -43,7 +45,7 @@ RSpec.describe FileSmasher do
       let(:directories) { ['inexistent_directory'] }
 
       it 'raise DirNotExistError' do
-        expect{ subject }.to raise_error(DirNotExistError, "Directory '#{directories.first}' does not exist")
+        expect { subject }.to raise_error(DirNotExistError, "Directory '#{directories.first}' does not exist")
       end
     end
 
@@ -54,7 +56,7 @@ RSpec.describe FileSmasher do
         expect(subject).to be_empty
       end
     end
-    
+
     context 'when directories have files' do
       let(:directories) do
         [

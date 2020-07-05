@@ -1,1 +1,0 @@
-atualizar readme para informar sobre gemas e arquitetura utilizada para desenvolvimento

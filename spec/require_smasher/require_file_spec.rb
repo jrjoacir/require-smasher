@@ -1,14 +1,16 @@
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe RequireFile do
-  context '#require' do
+  describe '#require' do
     subject { RequireFile.require(files) }
 
     context 'when file is not informed' do
       let(:files) { [] }
 
       it 'raise FileNotInformedError' do
-        expect{ subject }.to raise_error(FileNotInformedError, 'File was not informed')
+        expect { subject }.to raise_error(FileNotInformedError, 'File was not informed')
       end
     end
 
@@ -17,7 +19,7 @@ RSpec.describe RequireFile do
       let(:error_message) { "Error while requiring file #{files.first}: cannot load such file" }
 
       it 'raise RequireFileError' do
-        expect{ subject }.to raise_error(RequireFileError, /#{error_message}/)
+        expect { subject }.to raise_error(RequireFileError, /#{error_message}/)
       end
     end
 
@@ -26,8 +28,8 @@ RSpec.describe RequireFile do
         let(:files) { ['spec/fixtures/is_not_a_ruby_file.txt'] }
 
         it 'raise RequireFileError' do
-          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
-          expect{ subject }.to raise_error(RequireFileError, /cannot load such file/)
+          expect { subject }.to raise_error(RequireFileError, /Error while requiring file/)
+          expect { subject }.to raise_error(RequireFileError, /cannot load such file/)
         end
       end
 
@@ -35,8 +37,8 @@ RSpec.describe RequireFile do
         let(:files) { ['spec/fixtures/is_not_a_ruby_file'] }
 
         it 'raise RequireFileError' do
-          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
-          expect{ subject }.to raise_error(RequireFileError, /cannot load such file/)
+          expect { subject }.to raise_error(RequireFileError, /Error while requiring file/)
+          expect { subject }.to raise_error(RequireFileError, /cannot load such file/)
         end
       end
     end
@@ -51,8 +53,8 @@ RSpec.describe RequireFile do
       end
 
       it 'raise RequireFileError' do
-        expect{ subject }.to raise_error(RequireFileError, /uninitialized constant/)
-        expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
+        expect { subject }.to raise_error(RequireFileError, /uninitialized constant/)
+        expect { subject }.to raise_error(RequireFileError, /Error while requiring file/)
       end
     end
 
@@ -99,22 +101,22 @@ RSpec.describe RequireFile do
     end
   end
 
-  context '#require_directories' do
+  describe '#require_directories' do
     subject { RequireFile.require_directories(directories) }
 
     context 'when directory is not informed' do
       let(:directories) { [] }
-      
+
       it 'raise DirNotInformedError' do
-        expect{ subject }.to raise_error(DirNotInformedError, 'Directory was not informed')
+        expect { subject }.to raise_error(DirNotInformedError, 'Directory was not informed')
       end
     end
 
     context 'when directory does not exist' do
       let(:directories) { ['dir'] }
-      
+
       it 'raise DirNotExistError' do
-        expect{ subject }.to raise_error(DirNotExistError, "Directory '#{directories.first}' does not exist")
+        expect { subject }.to raise_error(DirNotExistError, "Directory '#{directories.first}' does not exist")
       end
     end
 
@@ -123,8 +125,8 @@ RSpec.describe RequireFile do
         let(:directories) { ['spec/fixtures/without_subdirectories/with_errors'] }
 
         it 'raise RequireFileError' do
-          expect{ subject }.to raise_error(RequireFileError, /uninitialized constant/)
-          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
+          expect { subject }.to raise_error(RequireFileError, /uninitialized constant/)
+          expect { subject }.to raise_error(RequireFileError, /Error while requiring file/)
         end
       end
 
@@ -142,8 +144,8 @@ RSpec.describe RequireFile do
         let(:directories) { ['spec/fixtures/with_subdirectories/with_errors'] }
 
         it 'raise RequireFileError' do
-          expect{ subject }.to raise_error(RequireFileError, /uninitialized constant/)
-          expect{ subject }.to raise_error(RequireFileError, /Error while requiring file/)
+          expect { subject }.to raise_error(RequireFileError, /uninitialized constant/)
+          expect { subject }.to raise_error(RequireFileError, /Error while requiring file/)
         end
       end
 

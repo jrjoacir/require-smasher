@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Classify elements in files or gems
 
 module Classifier

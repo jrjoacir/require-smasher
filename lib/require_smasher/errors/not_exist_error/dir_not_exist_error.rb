@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Define class for handle errors about inexistent directory
 
 class DirNotExistError < NotExistError
