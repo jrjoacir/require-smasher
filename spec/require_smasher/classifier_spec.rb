@@ -76,10 +76,10 @@ RSpec.describe Classifier do
 
       let(:classified_list) do
         {
-          files: ['./spec/fixtures/dependents/x.rb',
-                  './spec/fixtures/dependents/z.rb',
-                  'spec/fixtures/independents/v.rb',
-                  'spec/fixtures/independents/u'],
+          files: ['spec/fixtures/independents/v.rb',
+                  'spec/fixtures/independents/u',
+                  './spec/fixtures/dependents/x.rb',
+                  './spec/fixtures/dependents/z.rb'],
           gems: %w[rspec rake invalid_file1 invalid_gem_1]
         }
       end
