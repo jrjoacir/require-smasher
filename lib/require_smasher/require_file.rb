@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Handle requiring files
 
 module RequireFile
@@ -27,12 +29,10 @@ module RequireFile
       errors_list = { files_with_error: [], errors: [] }
 
       files.uniq.each do |file|
-        begin
-          require_relative File.expand_path("./#{file}")
-        rescue LoadError, StandardError => error
-          errors_list[:files_with_error] << file
-          errors_list[:errors] << "Error while requiring file #{file}: #{error.message}"
-        end
+        require_relative File.expand_path("./#{file}")
+      rescue LoadError, StandardError => e
+        errors_list[:files_with_error] << file
+        errors_list[:errors] << "Error while requiring file #{file}: #{e.message}"
       end
 
       errors_list

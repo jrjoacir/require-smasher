@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'require_smasher/version'
 require 'require_smasher/file_smasher'
 require 'require_smasher/classifier'

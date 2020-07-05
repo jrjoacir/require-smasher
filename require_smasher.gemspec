@@ -23,18 +23,16 @@ Gem::Specification.new do |spec|
       "public gem pushes."
   end
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
+  spec.files = Dir['lib/**/*.rb'] + Dir['bin/**/*']
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "simplecov", "~> 0.16"
-  spec.add_development_dependency "rubocop", "~> 0.59"
-  spec.add_development_dependency "byebug", "~> 10.0"
-  spec.add_development_dependency "rubycritic", "~> 3.4"
+  spec.add_development_dependency 'bundler', '~> 2.1.4'
+  spec.add_development_dependency 'rake', '~> 13.0', '>= 13.0.1'
+  spec.add_development_dependency 'rspec', '~> 3.9'
+  spec.add_development_dependency 'simplecov', '~> 0.18.5'
+  spec.add_development_dependency 'rubocop', '~> 0.86.0'
+  spec.add_development_dependency 'byebug', '~> 11.1', '>= 11.1.3'
+  spec.add_development_dependency 'rubycritic', '~> 4.5', '>= 4.5.1'
 end

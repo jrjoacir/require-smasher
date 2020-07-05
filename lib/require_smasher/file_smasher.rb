@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Find files
 
 module FileSmasher

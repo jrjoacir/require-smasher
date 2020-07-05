@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class X
   def self.test
     Z.test

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Define base class for handle errors
 
 class BaseError < StandardError

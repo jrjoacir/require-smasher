@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Classifier do
-  context '#classify' do
+  describe '#classify' do
     subject { Classifier.classify(elements) }
 
     context 'when list of elements is empty' do
@@ -51,7 +53,7 @@ RSpec.describe Classifier do
     end
 
     context 'when a list of invalid elements is informed' do
-      let(:elements) { ['invalid_1', 'invalid_2'] }
+      let(:elements) { %w[invalid_1 invalid_2] }
       let(:classified_list) { { files: [], gems: elements } }
 
       it 'return hash with empty files list and a list of gems' do
@@ -68,7 +70,7 @@ RSpec.describe Classifier do
           'invalid_gem_1',
           'spec/fixtures/dependents',
           'spec/fixtures/independents/v.rb',
-          'spec/fixtures/independents/u',
+          'spec/fixtures/independents/u'
         ]
       end
 
@@ -78,7 +80,7 @@ RSpec.describe Classifier do
                   './spec/fixtures/dependents/z.rb',
                   'spec/fixtures/independents/v.rb',
                   'spec/fixtures/independents/u'],
-          gems: %w(rspec rake invalid_file1 invalid_gem_1)
+          gems: %w[rspec rake invalid_file1 invalid_gem_1]
         }
       end
 

@@ -4,8 +4,13 @@ Metrics/LineLength:
 Style/Documentation:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 AllCops:
   Exclude:
     - 'bin/**/*'
   Include:
     - 'lib/**/*.rb'
+    - 'spec/**/*.rb'

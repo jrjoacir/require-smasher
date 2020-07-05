@@ -1,7 +1,9 @@
-require "spec_helper"
+# frozen_string_literal: true
+
+require 'spec_helper'
 
 RSpec.describe RequireSmasher do
-  context '#require_all' do
+  describe '#require_all' do
     subject { require_all(require_1, require_2, require_3, require_4) }
 
     context 'when required list is invalid' do
@@ -12,7 +14,7 @@ RSpec.describe RequireSmasher do
       let(:error_message) { "cannot load such file -- #{require_3}" }
 
       it 'raise a StandardError with message for gems and directories' do
-        expect{ subject }.to raise_error(LoadError, error_message)
+        expect { subject }.to raise_error(LoadError, error_message)
       end
     end
 
@@ -28,7 +30,7 @@ RSpec.describe RequireSmasher do
     end
   end
 
-  context '#require_gem' do
+  describe '#require_gem' do
     subject { require_gem(gem) }
 
     context 'when gem is invalid' do
@@ -36,7 +38,7 @@ RSpec.describe RequireSmasher do
       let(:error_message) { "cannot load such file -- #{gem}" }
 
       it 'raise a LoadError' do
-        expect{ subject }.to raise_error(LoadError, error_message)
+        expect { subject }.to raise_error(LoadError, error_message)
       end
     end
 
@@ -49,7 +51,7 @@ RSpec.describe RequireSmasher do
     end
   end
 
-  context '#require_file' do
+  describe '#require_file' do
     subject { require_file(file) }
 
     context 'when file is invalid' do
@@ -57,7 +59,7 @@ RSpec.describe RequireSmasher do
       let(:error_message) { "cannot load such file -- #{file}" }
 
       it 'raise a LoadError' do
-        expect{ subject }.to raise_error(LoadError, /cannot load such file -- /)
+        expect { subject }.to raise_error(LoadError, /cannot load such file -- /)
       end
     end
 
@@ -80,7 +82,7 @@ RSpec.describe RequireSmasher do
     end
   end
 
-  context '#require_dir' do
+  describe '#require_dir' do
     subject { require_dir(directory) }
 
     context 'when directory is invalid' do
@@ -88,7 +90,7 @@ RSpec.describe RequireSmasher do
       let(:error_message) { "Directory '#{directory}' does not exist" }
 
       it 'raise a StandardError with message for a directory' do
-        expect{ subject }.to raise_error(StandardError, error_message)
+        expect { subject }.to raise_error(StandardError, error_message)
       end
     end
 
@@ -101,13 +103,13 @@ RSpec.describe RequireSmasher do
     end
   end
 
-  context '#require_dirs' do
+  describe '#require_dirs' do
     context 'when directories are not informed' do
       subject { require_dirs }
       let(:error_message) { 'Directory was not informed' }
 
       it 'raise DirNotInformedError' do
-        expect{ subject }.to raise_error(DirNotInformedError, error_message)
+        expect { subject }.to raise_error(DirNotInformedError, error_message)
       end
     end
 
@@ -144,13 +146,13 @@ RSpec.describe RequireSmasher do
     end
   end
 
-  context '#require_gems' do
+  describe '#require_gems' do
     subject { require_gems(gems) }
 
     context 'when gems are invalid' do
       context 'when gem is not informed' do
         it 'raise GemNotInformedError' do
-          expect{ require_gems }.to raise_error(GemNotInformedError, 'Gem was not informed')
+          expect { require_gems }.to raise_error(GemNotInformedError, 'Gem was not informed')
         end
       end
 
@@ -158,7 +160,7 @@ RSpec.describe RequireSmasher do
         let(:gems) { 'gem' }
 
         it 'raise LoadError' do
-          expect{ subject }.to raise_error(LoadError, "cannot load such file -- #{gems}")
+          expect { subject }.to raise_error(LoadError, "cannot load such file -- #{gems}")
         end
       end
 
@@ -166,7 +168,7 @@ RSpec.describe RequireSmasher do
         let(:gems) { [['gem']] }
 
         it 'raise StandardError' do
-          expect{ subject }.to raise_error(StandardError)
+          expect { subject }.to raise_error(StandardError)
         end
       end
     end
@@ -181,7 +183,7 @@ RSpec.describe RequireSmasher do
 
       context 'when many gems are informed' do
         subject { require_gems('rspec', 'rake') }
-        let(:gems) { ['rspec', 'rake'] }
+        let(:gems) { %w[rspec rake] }
 
         it 'return a list of required gems' do
           expect(subject).to eq gems
