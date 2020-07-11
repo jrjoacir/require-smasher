@@ -13,12 +13,7 @@ module FileSmasher
     def files(directories)
       raise DirNotInformedError if directories.empty?
 
-      files = []
-      directories.uniq.each do |directory|
-        files.concat(FileSmasher.files_by(directory))
-      end
-
-      files
+      directories.uniq.map { |directory| FileSmasher.files_by(directory) }.flatten
     end
 
     def file?(element)

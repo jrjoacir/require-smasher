@@ -85,9 +85,47 @@ Este comando aceita uma lista de arquivos e fará o `require` dos arquivos `file
 
 ## Desenvolvimento
 
+### Localmente
+
 Depois de dar `checkout` neste repositório, execute `bin/setup` para instalar as dependências. Então, execute `rake spec` para executar os testes. Você pode também executar `bin/console` para abrir um `prompt` interativo que permitirá você experimentar esta biblioteca (`gem`).
 
 Para instalar esta `gem` dentro de uma máquina local, execute `bundle exec rake install`. Para lançar uma nova versão, atualize o número da versão no arquivo `version.rb`, e então execute `bundle exec rake release`, ele criará uma `tag` do `git` para a versão, dará `push` dos `commits` do `git`, e do arquivo `.gem` para [rubygems.org](https://rubygems.org).
+
+### Utilizando Docker e Docker Compose
+
+Você pode desenvolver esta gem sem qualquer instalação de ferramentas ou bibliotecas usando funcionalidades do [Docker](https://docs.docker.com/install/) e [Docker Compose](https://docs.docker.com/compose/install/). Então, instale o [Docker](https://docs.docker.com/install/), [Docker Compose](https://docs.docker.com/compose/install/) e siga os próximos passos.
+
+1 - Faça o *build* do contêiner docker
+```bash
+docker-compose build
+```
+
+2 - Ingresse na contêiner *app*
+```bash
+docker-compose run --rm app sh
+```
+
+3 - Execute os testes:
+Fora do contêiner docker
+```bash
+docker-compose run --rm app bundle exec rspec
+```
+Dentro do contêiner docker
+```bash
+bundle exec rspec
+```
+4 - Execute o analisador de código
+Fora do contêiner docker
+```bash
+docker-compose run --rm app bundle exec rubocop
+```
+Dentro do contêiner docker
+```bash
+bundle exec rubocop
+```
+
+Mais informações sobre **parar** (*stop*), **iniciar** (*start*), **reiniciar** (*restart*), **executar** (*run*) contêineres e outros comandos Docker, leia a [Documentação do Docker Compose](https://docs.docker.com/compose/) e a [Documentação do Docker](https://docs.docker.com/).
+
 
 ## Contribuindo
 

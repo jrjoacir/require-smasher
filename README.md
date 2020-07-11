@@ -84,9 +84,46 @@ This command accept a list of files and it will require files `filename_1.rb`, `
 
 ## Development
 
+### Locally
+
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+### Using Docker and Docker Compose
+
+You can develop this gem without many installation tools or library using [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) features. So, install [Docker](https://docs.docker.com/install/), [Docker Compose](https://docs.docker.com/compose/install/) and follow the next steps.
+
+1 - Build docker containers
+```bash
+docker-compose build
+```
+
+2 - Ingress on *app* container
+```bash
+docker-compose run --rm app sh
+```
+
+3 - Execute tests:
+Outside docker container
+```bash
+docker-compose run --rm app bundle exec rspec
+```
+Inside docker container
+```bash
+bundle exec rspec
+```
+4 - Execute Code Analizer
+Outside docker container
+```bash
+docker-compose run --rm app bundle exec rubocop
+```
+Inside docker container
+```bash
+bundle exec rubocop
+```
+
+More information about *stop*, *start*, *restart*, *run* containers and so on, read [Docker Compose Documentation](https://docs.docker.com/compose/) and [Docker Documentation](https://docs.docker.com/).
 
 ## Contributing
 

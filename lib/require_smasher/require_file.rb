@@ -4,17 +4,15 @@
 
 module RequireFile
   class << self
-    def require(files)
+    def require(files, total = nil)
       raise FileNotInformedError if files.empty?
 
-      errors_list = require_files(files)
-      files_with_error = errors_list[:files_with_error]
+      results = require_files(files)
+      results.select! { |r| r[:error] }
+      return if results.empty?
+      raise RequireFileError, (results.map { |result| result[:message] }) if total == results.count
 
-      return if files_with_error.empty?
-
-      raise RequireFileError, errors_list[:errors] if files == files_with_error
-
-      require(files_with_error)
+      require(results.map { |result| result[:file] }, results.count)
     end
 
     def require_directories(directories)
@@ -26,16 +24,12 @@ module RequireFile
     private
 
     def require_files(files)
-      errors_list = { files_with_error: [], errors: [] }
-
-      files.uniq.each do |file|
+      files.uniq.map do |file|
         require_relative File.expand_path("./#{file}")
+        { file: file, error: false, message: nil }
       rescue LoadError, StandardError => e
-        errors_list[:files_with_error] << file
-        errors_list[:errors] << "Error while requiring file #{file}: #{e.message}"
+        { file: file, error: true, message: "Error while requiring file #{file}: #{e.message}" }
       end
-
-      errors_list
     end
   end
 end

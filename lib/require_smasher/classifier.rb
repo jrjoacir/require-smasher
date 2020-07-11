@@ -5,17 +5,12 @@
 module Classifier
   class << self
     def classify(elements)
-      files = []
-      gems = []
-
-      elements.uniq.each do |element|
-        case element_type(element)
-        when :file then files << element
-        when :directory then files.concat(FileSmasher.files_by(element))
-        else gems << element
-        end
-      end
-      { files: files, gems: gems }
+      elements.uniq!
+      files = elements.select { |element| element_type(element) == :file }
+      directories = (elements - files).select { |element| element_type(element) == :directory }
+      gems = elements - files - directories
+      files << directories.map { |directory| FileSmasher.files_by(directory) }
+      { files: files.flatten, gems: gems }
     end
 
     private
